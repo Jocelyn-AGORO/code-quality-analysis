@@ -5,19 +5,22 @@ class TennisGame1:
     def __init__(self, player1Name, player2Name):
         self.player1Name = player1Name
         self.player2Name = player2Name
-        self.p1points = 0 #TODO: Convention de nommage
-        self.p2points = 0 #TODO: Convention de nommage
+        self.p1points = 0 #TODO: Convention de nommage, nom de variable peu explicite
+        self.p2points = 0 #TODO: Convention de nommage, nom de variable peu explicite
 
     def won_point(self, playerName):
         if playerName == "player1":
             self.p1points += 1
         else:
             self.p2points += 1
-    #TODO: God Function    
+       # TODO: Dans le cas ou le nom n'est player2 ni player1 ou le nom passé ne correspond pas à un nom de jouer    
+    
+    #TODO: God Function, la décomposer en foncition plus courtes avec chacune une responsabilité
     def score(self):
         result = ""
         tempScore=0 #TODO: Scope trop global, n'est pas utilisé dans le bloque if
         if (self.p1points==self.p2points):
+            # TODO: Eviter l'utilisation des dictionnaires au profit de petite méthodes
             result = {
                 0 : "Love-All",
                 1 : "Fifteen-All",
