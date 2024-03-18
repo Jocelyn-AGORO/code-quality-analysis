@@ -1,52 +1,72 @@
-# -*- coding: utf-8 -*-
-# Frontière metier/technique floue
+from typing import Dict
+
+from internationalize import translate, translate_parameterized
+
 class TennisGame1:
 
-    def __init__(self, player1Name, player2Name):
-        self.player1Name = player1Name
-        self.player2Name = player2Name
-        self.p1points = 0 #TODO: Convention de nommage, nom de variable peu explicite
-        self.p2points = 0 #TODO: Convention de nommage, nom de variable peu explicite
+    SCORE_STEPS = ["Love", "Fifteen", "Thirty", "Forty"]
+    def __init__(self, player1_name, player2_name, language):
+        self.player1_name = player1_name
+        self.player2_name = player2_name
+        self.player1_score = 0
+        self.player2_score = 0
+        self.language = language
 
-    def won_point(self, playerName):
-        if playerName == "player1":
-            self.p1points += 1
+    def won_point(self, playerName: str):
+        if playerName == self.player1_name:
+            self.player1_score += 1
+        elif playerName == self.player2_name:
+            self.player2_score += 1
         else:
-            self.p2points += 1
-       # TODO: Dans le cas ou le nom n'est player2 ni player1 ou le nom passé ne correspond pas à un nom de jouer    
-    
-    #TODO: God Function, la décomposer en foncition plus courtes avec chacune une responsabilité
+            raise ValueError(self.translate_parameterized("playerNameError", {playerName: playerName}))
+
+    def translate(self, key: str):
+        return translate(self.language, key)
+
+    def translate_parameterized(self, key: str, kwargs: Dict):
+        return translate_parameterized(self.language, key,**kwargs)
+
     def score(self):
-        result = ""
-        tempScore=0 #TODO: Scope trop global, n'est pas utilisé dans le bloque if
-        if (self.p1points==self.p2points):
-            # TODO: Eviter l'utilisation des dictionnaires au profit de petite méthodes
-            result = {
-                0 : "Love-All",
-                1 : "Fifteen-All",
-                2 : "Thirty-All",
-            }.get(self.p1points, "Deuce")
-        elif (self.p1points>=4 or self.p2points>=4):
-            minusResult = self.p1points-self.p2points
-            if (minusResult==1):
-                result ="Advantage player1"
-            elif (minusResult ==-1): #TODO: Condition magiques
-                result ="Advantage player2"
-            elif (minusResult>=2): #TODO: Condition magiques
-                result = "Win for player1"
-            else:
-                result ="Win for player2"
+        if self._is_score_tied():
+            return self._score_when_tied()
+        elif self._is_advantage_or_win():
+            return self._score_advantage_or_win()
         else:
-            for i in range(1,3):
-                if (i==1): #TODO: Control structure depth
-                    tempScore = self.p1points
-                else:
-                    result+="-"
-                    tempScore = self.p2points
-                result += {
-                    0 : "Love",
-                    1 : "Fifteen",
-                    2 : "Thirty",
-                    3 : "Forty",
-                }[tempScore]
-        return result
+            return self._normal_score()
+
+    def _is_score_tied(self):
+        # Simplification de la vérification des scores égaux.
+        return self.player1_score == self.player2_score
+
+    def _score_when_tied(self):
+        # Centralisation du mapping des scores pour un score égal dans une méthode dédiée.
+        # Cela améliore la clarté et facilite les modifications futures.
+        if self.player1_score < 3 :
+            step = self.translate(self.SCORE_STEPS[self.player1_score].lower())
+            alls = self.translate("all")
+            print(step)
+            return f"{step}-{alls}"
+        else:
+            return translate(self.language, "deuce")
+        # return f"{step}-{alls}" if self.player1_score < 3 else
+
+    def _is_advantage_or_win(self):
+        # Vérification simplifiée pour déterminer si l'un des joueurs a l'avantage ou a gagné.
+        return self.player1_score >= 4 or self.player2_score >= 4
+
+    def _score_advantage_or_win(self):
+        score_difference = self.player1_score - self.player2_score
+        if score_difference == 1:
+            return f"{self.translate('advantage')} " + self.player1_name
+        elif score_difference == -1:
+            return f"{self.translate('advantage')} " + self.player2_name
+        elif score_difference >= 2:
+            return f"{self.translate('win')} {self.translate('for')} " + self.player1_name
+        else:
+            return f"{self.translate('win')} {self.translate('for')} " + self.player2_name
+
+    def _normal_score(self):
+        # Remplacement du mapping des scores par une séquence explicite, pour une lecture et une maintenance facilitées.
+        player1_step = self.SCORE_STEPS[self.player1_score]
+        player2_step = self.SCORE_STEPS[self.player2_score]
+        return f"{self.translate(player1_step)}-{self.translate(player2_step)}"

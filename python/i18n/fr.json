@@ -1,0 +1,13 @@
+{
+    "win": "Victoire",
+    "player": "Joueur",
+    "advantage": "Avantage",
+    "love": "Zéro",
+    "fifteen": "Quinze",
+    "thirty": "Trente",
+    "forty": "Quarante",
+    "deuce": "Egalité",
+    "for": "pour",
+    "all": "Partout",
+    "playerNameError": "Le nom du Jouer $playerName n'est pas reconnu."
+}

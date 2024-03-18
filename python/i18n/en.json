@@ -1,0 +1,13 @@
+{
+    "win": "Win",
+    "player": "Player",
+    "advantage": "Advantage",
+    "love": "Love",
+    "fifteen": "Fifteen",
+    "thirty": "Thirty",
+    "forty": "Forty",
+    "deuce": "Deuce",
+    "for": "for",
+    "all": "All",
+    "playerNameError": "Player name $playerName is not recognized."
+}
