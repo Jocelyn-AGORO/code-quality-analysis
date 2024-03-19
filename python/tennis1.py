@@ -67,6 +67,6 @@ class TennisGame1:
 
     def _normal_score(self):
         # Remplacement du mapping des scores par une séquence explicite, pour une lecture et une maintenance facilitées.
-        player1_step = self.SCORE_STEPS[self.player1_score]
-        player2_step = self.SCORE_STEPS[self.player2_score]
+        player1_step = self.SCORE_STEPS[self.player1_score].lower()
+        player2_step = self.SCORE_STEPS[self.player2_score].lower()
         return f"{self.translate(player1_step)}-{self.translate(player2_step)}"
