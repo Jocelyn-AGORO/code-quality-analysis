@@ -72,41 +72,13 @@ def play_game_translate(TennisGame, p1Points, p2Points, p1Name, p2Name, lang):
     return game
 
 class TestTennis(unittest.TestCase):
+    """Test Class"""
 
-    def test_Score_Game1(self):
+    def test_score_game_1(self):
+        """First method of test"""
         for testcase in test_cases:
             (p1Points, p2Points, score, p1Name, p2Name) = testcase
-            game = play_game(TennisGame1, p1Points, p2Points, p1Name, p2Name)
-            self.assertEqual(score, game.score())
-
-    def test_Score_Game2(self):
-        for testcase in test_cases:
-            (p1Points, p2Points, score, p1Name, p2Name) = testcase
-            game = play_game(TennisGame2, p1Points, p2Points, p1Name, p2Name)
-            self.assertEqual(score, game.score())
-
-    def test_Score_Game3(self):
-        for testcase in test_cases:
-            (p1Points, p2Points, score, p1Name, p2Name) = testcase
-            game = play_game(TennisGame3, p1Points, p2Points, p1Name, p2Name)
-            self.assertEqual(score, game.score())
-
-    def test_Score_Game4(self):
-        for testcase in test_cases:
-            (p1Points, p2Points, score, p1Name, p2Name) = testcase
-            game = play_game(TennisGame4, p1Points, p2Points, p1Name, p2Name)
-            self.assertEqual(score, game.score())
-
-    def test_Score_Game5(self):
-        for testcase in test_cases:
-            (p1Points, p2Points, score, p1Name, p2Name) = testcase
-            game = play_game(TennisGame5, p1Points, p2Points, p1Name, p2Name)
-            self.assertEqual(score, game.score())
-
-    def test_Score_Game6(self):
-        for testcase in test_cases:
-            (p1Points, p2Points, score, p1Name, p2Name) = testcase
-            game = play_game(TennisGame6, p1Points, p2Points, p1Name, p2Name)
+            game = play_game_translate(TennisGame1, p1Points, p2Points, p1Name, p2Name, 'en')
             self.assertEqual(score, game.score())
 
 

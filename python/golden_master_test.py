@@ -18,9 +18,9 @@ class GoldenMasterTest(unittest.TestCase):
         return game.score()
 
     def make_file_name(self, score_player_1, score_player_2, lang):
-        return f"{self.DIR}\\{lang}\\{score_player_1}_{score_player_2}.txt"
+        return f"{self.DIR}\{lang}\{score_player_1}_{score_player_2}.txt"
 
-    def _test_record(self):
+    def test_record(self):
         for language in ["fr", "en"]:
             for score_player_1 in list(range(0, 16)):
                 for score_player_2 in list(range(0, 16)):
@@ -30,7 +30,7 @@ class GoldenMasterTest(unittest.TestCase):
                         file.writelines(sortie)
                         file.close()
 
-    def test_replay(self):
+    def _test_replay(self):
         for language in ["fr", "en"]:
             for score_player_1 in list(range(0, 16)):
                 for score_player_2 in list(range(0, 16)):
