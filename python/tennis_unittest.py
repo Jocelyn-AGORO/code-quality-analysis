@@ -3,12 +3,6 @@
 import unittest
 
 from tennis1 import TennisGame1
-from tennis2 import TennisGame2
-from tennis3 import TennisGame3
-from tennis4 import TennisGame4
-from tennis5 import TennisGame5
-from tennis6 import TennisGame6
-
 
 test_cases = [
     (0, 0, "Love-All", 'player1', 'player2'),
@@ -53,22 +47,22 @@ test_cases = [
 ]
 
 
-def play_game(TennisGame, p1Points, p2Points, p1Name, p2Name):
-    game = TennisGame(p1Name, p2Name)
-    for i in range(max(p1Points, p2Points)):
-        if i < p1Points:
-            game.won_point(p1Name)
-        if i < p2Points:
-            game.won_point(p2Name)
+def play_game(TennisGame, p1_points, p2_points, p1_name, p2_name):
+    game = TennisGame(p1_name, p2_name, 'en')
+    for i in range(max(p1_points, p2_points)):
+        if i < p1_points:
+            game.won_point(p1_name)
+        if i < p2_points:
+            game.won_point(p2_name)
     return game
 
-def play_game_translate(TennisGame, p1Points, p2Points, p1Name, p2Name, lang):
-    game = TennisGame(p1Name, p2Name, lang)
-    for i in range(max(p1Points, p2Points)):
-        if i < p1Points:
-            game.won_point(p1Name)
-        if i < p2Points:
-            game.won_point(p2Name)
+def play_game_translate(TennisGame, p1_points, p2_points, p1_name, p2_name, lang):
+    game = TennisGame(p1_name, p2_name, lang)
+    for i in range(max(p1_points, p2_points)):
+        if i < p1_points:
+            game.won_point(p1_name)
+        if i < p2_points:
+            game.won_point(p2_name)
     return game
 
 class TestTennis(unittest.TestCase):
@@ -77,8 +71,8 @@ class TestTennis(unittest.TestCase):
     def test_score_game_1(self):
         """First method of test"""
         for testcase in test_cases:
-            (p1Points, p2Points, score, p1Name, p2Name) = testcase
-            game = play_game_translate(TennisGame1, p1Points, p2Points, p1Name, p2Name, 'en')
+            (p1_points, p2_points, score, p1_name, p2_name) = testcase
+            game = play_game_translate(TennisGame1, p1_points, p2_points, p1_name, p2_name, 'en')
             self.assertEqual(score, game.score())
 
 
