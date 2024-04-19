@@ -10,12 +10,15 @@ class TennisGame1:
         self.player1 = Player(player1_name)
         self.player2 = Player(player2_name)
         self.language = language
+        
+    def game_step(self, player: Player):
+        return self.translate(self.SCORE_STEPS[player.get_score()].lower())
 
     def won_point(self, player_name: str):
         if player_name == self.player1.name:
-            self.player1.score += 1
+            self.player1.win_point()
         elif player_name == self.player2.name:
-            self.player2.score += 1
+            self.player2.win_point()
         else:
             raise ValueError(self.translate_parameterized("playerNameError", {player_name: player_name}))
 
@@ -35,13 +38,13 @@ class TennisGame1:
 
     def _is_score_tied(self):
         # Simplification de la vérification des scores égaux.
-        return self.player1.score == self.player2.score
+        return self.player1.get_score() == self.player2.get_score()
 
     def _score_when_tied(self):
         # Centralisation du mapping des scores pour un score égal dans une méthode dédiée.
         # Cela améliore la clarté et facilite les modifications futures.
-        if self.player1.score < 3 :
-            step = self.translate(self.SCORE_STEPS[self.player1.score].lower())
+        if self.player1.get_score() < 3 :
+            step = self.game_step(self.player1)
             alls = self.translate("all")
             print(step)
             return f"{step}-{alls}"
@@ -51,10 +54,10 @@ class TennisGame1:
 
     def _is_advantage_or_win(self):
         # Vérification simplifiée pour déterminer si l'un des joueurs a l'avantage ou a gagné.
-        return self.player1.score >= 4 or self.player2.score >= 4
+        return self.player1.get_score() >= 4 or self.player2.get_score() >= 4
 
     def _score_advantage_or_win(self):
-        score_difference = self.player1.score - self.player2.score
+        score_difference = self.player1.get_score() - self.player2.get_score()
         if score_difference == 1:
             return f"{self.translate('advantage')} " + self.player1.name
         elif score_difference == -1:
@@ -66,6 +69,6 @@ class TennisGame1:
 
     def _normal_score(self):
         # Remplacement du mapping des scores par une séquence explicite, pour une lecture et une maintenance facilitées.
-        player1_step = self.SCORE_STEPS[self.player1.score].lower()
-        player2_step = self.SCORE_STEPS[self.player2.score].lower()
-        return f"{self.translate(player1_step)}-{self.translate(player2_step)}"
+        player1_step = self.game_step(self.player1)
+        player2_step = self.game_step(self.player2)
+        return f"{player1_step}-{player2_step}"

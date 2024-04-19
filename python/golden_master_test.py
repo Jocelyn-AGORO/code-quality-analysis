@@ -23,7 +23,7 @@ class GoldenMasterTest(unittest.TestCase):
         """Method that creates a file for each golden master test case"""
         return f"{self.DIR}\\{lang}\\{score_player_1}_{score_player_2}.txt"
 
-    def test_record(self):
+    def _test_record(self):
         """Record method"""
         for language in ["fr", "en"]:
             for score_player_1 in list(range(0, 16)):
@@ -34,13 +34,13 @@ class GoldenMasterTest(unittest.TestCase):
                         file.writelines(sortie)
                         file.close()
 
-    def _test_replay(self):
+    def test_replay(self):
         """Replay method"""
         for language in ["fr", "en"]:
             for score_player_1 in list(range(0, 16)):
                 for score_player_2 in list(range(0, 16)):
                     with self.subTest(f"{score_player_1}, {score_player_2}"):
-                        sortie = self.play_game(score_player_1, score_player_2, "player1", "player2", language)
+                        sortie = self.play_game("player1", "player2", score_player_1, score_player_2, language)
                         file = open(self.make_file_name(score_player_1, score_player_2, language), "r", encoding="utf-8")
                         attendu = file.read()
                         file.close()
