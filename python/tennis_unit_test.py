@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import unittest
+from Player import Player
 
 from tennis1 import TennisGame1
 
@@ -57,7 +58,9 @@ def play_game(TennisGame, p1_points, p2_points, p1_name, p2_name):
     return game
 
 def play_game_translate(TennisGame, p1_points, p2_points, p1_name, p2_name, lang):
-    game = TennisGame(p1_name, p2_name, lang)
+    player1 = Player("player1")
+    player2 = Player("player2")
+    game = TennisGame(player1, player2, lang)
     for i in range(max(p1_points, p2_points)):
         if i < p1_points:
             game.won_point(p1_name)

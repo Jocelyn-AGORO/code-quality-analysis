@@ -3,7 +3,7 @@
 import pytest
 from tennis1 import TennisGame1
 
-from tennis_unittest import test_cases, play_game_translate
+from tennis_unit_test import test_cases, play_game_translate
 
 
 def test_of_default():

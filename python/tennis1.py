@@ -4,11 +4,10 @@ from Player import Player
 from internationalize import translate, translate_parameterized
 
 class TennisGame1:
-
     SCORE_STEPS = ["Love", "Fifteen", "Thirty", "Forty"]
-    def __init__(self, player1_name, player2_name, language):
-        self.player1 = Player(player1_name)
-        self.player2 = Player(player2_name)
+    def __init__(self, player1: Player , player2: Player, language):
+        self.player1 = player1
+        self.player2 = player2
         self.language = language
         
     def game_step(self, player: Player):

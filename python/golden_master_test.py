@@ -1,4 +1,5 @@
 import unittest
+from Player import Player 
 
 from tennis1 import TennisGame1
 
@@ -11,7 +12,9 @@ class GoldenMasterTest(unittest.TestCase):
     @staticmethod
     def play_game(p1_name, p2_name, p1_points, p2_points,  lang):
         """Method that plays a game for each test case"""
-        game = TennisGame1(p1_name, p2_name, lang)
+        player1 = Player("player1")
+        player2 = Player("player2")
+        game = TennisGame1(player1, player2, lang)
         for i in range(max(p1_points, p2_points)):
             if i < p1_points:
                 game.won_point(p1_name)
